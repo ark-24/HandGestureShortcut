@@ -12,7 +12,7 @@ DATA_PATH = os.path.join('Landmark_Data')
 log_dir = os.path.join('Logs')
 tb_callBack = TensorBoard(log_dir=log_dir)
 
-actions = np.array(['okay', 'peace', 'thumbsUp', 'thumbsDown', 'salute', 'callMe', 'spiderman' ])
+actions = np.array(['okay', 'peace', 'thumbsUp', 'thumbsDown', 'salute', 'spiderman' ])
 label_map = {label:num for num,label in enumerate(actions)}  
 no_seq,seq_length = 30, 30
 sequences, labels =[], []
@@ -38,7 +38,7 @@ model.add(Dense(32 , activation='relu'))
 model.add(Dense(actions.shape[0] , activation='softmax'))
 model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
 
-model.fit(X_train, y_train, epochs=200, callbacks=[tb_callBack])
+model.fit(X_train, y_train, epochs=250, callbacks=[tb_callBack])
 model.save('actions.h5')
 
 

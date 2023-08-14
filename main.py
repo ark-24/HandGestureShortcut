@@ -1,3 +1,5 @@
+import time
+import webbrowser
 import cv2
 import mediapipe as mp
 import numpy as np
@@ -20,8 +22,8 @@ mp_holistic = mp.solutions.holistic # Holistic model
 sequence = []
 sentence = []
 threshold = 0.9
-actions = np.array(['okay', 'peace', 'thumbsUp', 'thumbsDown', 'salute', 'callMe', 'spiderman' ])
-
+actions = np.array(['okay', 'peace', 'thumbsUp', 'thumbsDown', 'salute', 'spiderman' ])
+actionTrack = []
 
 cap = cv2.VideoCapture(0)
 with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
@@ -50,7 +52,16 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         sequence = sequence[-30:]
         if len(sequence) == 30:
             res = model.predict(np.expand_dims(sequence,axis=0))[0]
-            print(actions[np.argmax(res)])                
+            actionTrack.append(actions[np.argmax(res)])  
+            if len(actionTrack) > 15 and len(set(actionTrack[-15:])) == 1:
+                selectedAction = actionTrack[-1]
+                actionTrack=[]
+                print(selectedAction)
+                match selectedAction:
+                    case "okay":
+                        webbrowser.open('www.google.ca')
+                        selectedAction='jjjjjljn'
+                        time.sleep(2)
 
         cv2.imshow('Hand Tracking', image)
         if cv2.waitKey(10) & 0xFF == ord('q'):

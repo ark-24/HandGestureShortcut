@@ -9,8 +9,8 @@ mp_holistic = mp.solutions.holistic # Holistic model
 
 
 DATA_PATH = os.path.join('Landmark_Data')
-actions = np.array(['okay', 'peace', 'thumbsUp', 'thumbsDown', 'salute', 'callMe', 'spiderman' ])
-no_sequences = 30 #30 clips
+actions = np.array(['okay', 'peace', 'thumbsUp', 'thumbsDown', 'salute', 'spiderman' ])
+no_sequences = 40 #40 clips
 sequence_length = 30 #30 frames per clip
 
 def extract_keypoints(results):
